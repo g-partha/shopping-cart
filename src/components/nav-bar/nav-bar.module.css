@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  padding: 10px 30px;
+  border-radius: 15px;
+  background-color: peachpuff;
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+}
+.container ul {
+  display: flex;
+  gap: 40px;
+  justify-content: space-evenly;
+}
+.container li {
+  list-style: none;
+}
+.container a {
+  text-decoration: none;
+}
