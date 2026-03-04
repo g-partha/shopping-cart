@@ -1,29 +1,8 @@
-import { useEffect, useState } from "react";
 import css from "./item-card.module.css";
+import useFetchGetData from '../../custom-hooks/use-fetch-get.jsx';
 
 const ItemCard = ({ itemId }) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-    fetch(`https://fakestoreapi.com/products/${itemId}`, { signal })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((result) => setData(result))
-      .catch((errorCaught) => {
-        if (errorCaught.name !== "AbortError") {
-          setError(errorCaught.message);
-        }
-      })
-      .finally(() => setLoading(false));
-    return () => controller.abort();
-  }, [itemId]);
+  const { data, error, loading } = useFetchGetData(`https://fakestoreapi.com/products/${itemId}`);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -31,7 +10,7 @@ const ItemCard = ({ itemId }) => {
   if (error) {
     return <div>{error}</div>;
   }
-  if (data !== null) {
+  if (data) {
     return (
       <div className={css.itemCard}>
         <div className={css.imageContainer}>
