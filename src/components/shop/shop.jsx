@@ -6,7 +6,7 @@ export default function Shop() {
   const { data } = useFetchGetData("https://fakestoreapi.com/products/");
   return <div>
     {data && data.map((item) => {
-      return <ItemCard key={item.id} itemId={item.id} />
+      return <ItemCard key={item.id} itemId={item.id} setCartItems={setCartItems} />
     })}
 
   </div>;

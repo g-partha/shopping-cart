@@ -17,3 +17,12 @@
   object-fit: contain;
   object-position: center;
 }
+.quantityForm{
+  display: flex;
+}
+.quantityForm input{
+  
+}
+.quantityForm img {
+  width: 10px;
+}
