@@ -2,27 +2,21 @@ import useFetchGetData from '../../custom-hooks/use-fetch-get.jsx';
 import { useState } from 'react';
 import downArrow from '../../assets/arrow-down-circle.svg';
 import upArrow from '../../assets/arrow-up-circle.svg';
+import cartRemove from '../../assets/cart-remove.svg';
 
-const CartItem = ({ itemId, initialQuantity, setCartItems }) => {
-  const { data, error, loading } = useFetchGetData(`https://fakestoreapi.com/products/${itemId}`);
-  const [quantity, setQuantity] = useState(initialQuantity);
-  const updateCart = () => {
-    const numberQuantity = +quantity;
-    if (numberQuantity > 0) {
-      setCartItems((cartItems) => ({ ...cartItems, [itemId]: (cartItems[itemId] ? cartItems[itemId] + numberQuantity : numberQuantity) }));
-    }
-  }
-  const handleChange = (value) => {
-    typeof Number(value) === 'number' && quantity >= 0 && setQuantity(value);
-    updateCart();
-  }
+const CartItem = ({ apiURL, itemId, cartItems, setCartItems }) => {
+  const { data, error, loading } = useFetchGetData(`${apiURL}/products/${itemId}`);
   const handleIcrement = () => {
-    setQuantity((quantity) => +quantity + 1);
-    updateCart();
+    setCartItems((cartItems) => ({ ...cartItems, [itemId]: cartItems[itemId] + 1 }));
   }
   const handleDecrement = () => {
-    quantity > 0 && setQuantity((quantity) => +quantity - 1);
-    updateCart();
+    cartItems[itemId] === 1 && removeItems();
+    cartItems[itemId] > 1 && setCartItems((cartItems) => ({ ...cartItems, [itemId]: cartItems[itemId] - 1 }));
+  }
+  
+  const removeItems = () => {
+    const {[itemId]: removedIitem, ...remainingItems} = cartItems;
+    setCartItems(remainingItems);
   }
   if (loading) {
     return <div>Loading...</div>;
@@ -32,16 +26,17 @@ const CartItem = ({ itemId, initialQuantity, setCartItems }) => {
   }
   if (data) {
     return (
-      <div className={css.itemCard}>
-        <div className={css.imageContainer}>
-          <img className={css.image} src={data.image}></img>
+      <div>
+        <div>
+          <img src={data.image}></img>
         </div>
-        <div className={css.title}>{data.title}</div>
-        <form className={css.quantityForm} onSubmit={handleSubmit}>
-          <input value={quantity} type='number' onChange={(e) => handleChange(e.target.value)} />
+        <div>{data.title}</div>
+        <div>
+          <div>{cartItems[itemId]}</div>
           <img src={upArrow} onClick={handleIcrement} />
           <img src={downArrow} onClick={handleDecrement} />
-        </form>
+          <img src={cartRemove} onClick={removeItems} />
+        </div>
       </div>
     );
   }

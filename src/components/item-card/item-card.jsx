@@ -4,8 +4,8 @@ import { useState } from 'react';
 import downArrow from '../../assets/arrow-down-circle.svg';
 import upArrow from '../../assets/arrow-up-circle.svg';
 
-const ItemCard = ({ itemId, setCartItems }) => {
-  const { data, error, loading } = useFetchGetData(`https://fakestoreapi.com/products/${itemId}`);
+const ItemCard = ({ apiURL, itemId, setCartItems }) => {
+  const { data, error, loading } = useFetchGetData(`${apiURL}/products/${itemId}`);
   const [quantity, setQuantity] = useState(0);
   const [buttonText, setButtonText] = useState('Add to cart.');
   const handleSubmit = (e) => {

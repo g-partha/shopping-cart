@@ -1,15 +1,17 @@
 import { useOutletContext } from "react-router";
 import CartItem from "../cart-item/cart-item.jsx";
 export default function Cart() {
-  const { cartItems, setCartItems } = useOutletContext();
+  const { apiURL, cartItems, setCartItems } = useOutletContext();
   console.log(cartItems);
   return (
     <div>
-      {cartItems.forEach((id, quantity) => {
+      {Object.keys(cartItems).map((id) => {
         return (
           <CartItem
+            key={id}
             itemId={id}
-            initialQuantity={quantity}
+            apiURL={apiURL}
+            cartItems={cartItems}
             setCartItems={setCartItems}
           />
         );
