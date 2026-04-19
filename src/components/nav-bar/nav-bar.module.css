@@ -18,7 +18,21 @@
 }
 .container li {
   list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
 }
 .container a {
   text-decoration: none;
+}
+.cartIndicator {
+  border: 1px solid black;
+  width: 1em;
+  padding: 7px;
+  height: 1em;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

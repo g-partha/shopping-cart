@@ -1,0 +1,31 @@
+.container {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.image {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image img {
+  width: 100%;
+  height: 100%;
+  object-fit: scale-down;
+}
+.title {
+  display: flex;
+}
+.quantityContaner {
+  display: flex;
+  gap: 5px;
+}
+.quantity {
+  display: flex;
+}
+.quantityModifierIcons {
+  width: 30px;
+}

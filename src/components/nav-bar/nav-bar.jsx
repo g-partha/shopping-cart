@@ -1,7 +1,8 @@
 import css from "./nav-bar.module.css";
 import { Link } from "react-router";
 
-export default function NavBar() {
+export default function NavBar({ cartItems }) {
+  const count = Object.keys(cartItems).length;
   return (
     <nav className={css.container}>
       <ul>
@@ -12,7 +13,8 @@ export default function NavBar() {
           <Link to="/shop">SHOP</Link>
         </li>
         <li>
-          <Link to="/cart">CART</Link>
+          <Link to="/cart">CART </Link>
+          {count > 0 && <span className={css.cartIndicator}>{count}</span>}
         </li>
       </ul>
     </nav>
